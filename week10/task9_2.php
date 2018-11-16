@@ -16,89 +16,38 @@ input[type='text'],input[type='number']{
   width:calc(100% - 12px);
 }
 table tr td{
-  border: 1px solid black;
-  padding:5px;
-  padding-right: 50px;
+  padding:3px;
 }
 </style>
 </head>
 <?php
 $makers = ["Toyota","BMW","Mercedes"];
 $engine = ["gas","diesel","petroleum"];
-
-echo "<table style='border-collapse: collapse;'>";
-echo "<tr>";
-echo "<td>Maker:  </td>";
-echo "<td><select name='makers'>";
-echo "<option>".$makers[0]."</option>";
-echo "<option>".$makers[1]."</option>";
-echo "<option>".$makers[2]."</option>";
-echo "</select></td></tr>";
-
-echo "<tr>";
-echo "<td>Year:  </td>";
-echo "<td><select name='year'>";
-for ($i=2018; $i>=1990; $i--) { 
-  echo "<option>".$i."</option>";
-}
-echo "</select></td></tr>";
-
-echo "<tr>";
-echo "<td>Model:  </td>";
-echo "<td name='model'>Corolla</td></tr>";
-
-echo "<tr>";
-echo "<td>Engine:  </td>";
-echo "<td><input type='radio' name='eng0'>".$engine[0];
-echo "<input type='radio'name='eng1'>".$engine[1];
-echo "<input type='radio' name='eng2'>".$engine[2];
-echo "</td></tr>";
-
-
-echo "<tr>";
-echo "<td>Price:  </td>";
-echo "<td>300000</td></tr>";
-
-echo "<tr>";
-echo "<td>Additional:  </td>";  
-echo "<td><input type='checkbox' name='tax'>tax played<br>";
-echo "<input type='checkbox' name='tech'>technical check passed<br>";
-echo "<input type='checkbox' name='inv'>does not require investment<br>";
-echo "</td></tr>";
-echo "</table>";
-
-$item = filter_input(INPUT_POST, "makers");
-$year = filter_input(INPUT_POST, "year");
-$model = filter_input(INPUT_POST, "model");
-$engine = filter_input(INPUT_POST, "engine");
-$price = filter_input(INPUT_POST, "price");
-$tax = yes;
-$tech_check = "no";
-$inv = "no";
-
-
-
-
 ?>
-<form action="task9_2_submit.php">
-
-  <label>You added a new item: </label>
-    <span><?php echo $item ;?></span><br>
-  
-    <label>produced in </label>
-    <span><?php echo $year; "with" $engine?></span><br>
-  
-   <label>Tax payed: </label>
-    <span><?php echo $tax;?></span><br>
-   <label>Technical check passed: </label>
-    <span><?php echo $tech_check;?></span><br>
-     <label>Does not require invest. </label>
-    <span><?php echo $inv;?></span><br>
-     <span><?php echo $price;?></span><br>
-  
-  
-  
-
-
+<form action="task9_2_submit.php" method="post">
+    <select name="makers" id="makers">
+      <?php
+        for($i=0;$i<sizeof($makers);$i++){
+          echo '<option>' . $makers[$i] . '</option>';
+        }
+      ?>    
+    </select>
+    <select name="years" id="years">
+      <?php
+        for($i=2018;$i>1900;$i--){
+          echo '<option>' . ($i) . '</option>';
+        }
+      ?>    
+    </select>
+    <input type="text" name="model">
+    <?php
+        for($i=0;$i<sizeof($engine);$i++){
+          echo '<input type="radio" name="engine" value="'.$engine[$i].'"> '.$engine[$i].'<br>';
+        }
+      ?>   
+    <input type="text" name="price">
+    <input type="checkbox" name="additional1" value="yes"> tax payed<br>
+    <input type="checkbox" name="additional2" value="yes"> technical check passed<br>
+    <input type="checkbox" name="additional3" value="yes" checked>doesn't require investment<br>
     <input type="submit"/>
 </form>
